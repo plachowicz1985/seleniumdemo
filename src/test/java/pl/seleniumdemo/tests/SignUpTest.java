@@ -35,27 +35,6 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void signUpTest2() {
-        int randomNumber = (int) (Math.random() * 1000);
-        String randomMail = "name" + randomNumber + "@pio.pl";
-
-        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        hotelSearchPage.openSignUpForm();
-
-        SignUpPage signUpPage = new SignUpPage(driver);
-        signUpPage.setFirstNameInput("Marek");
-        signUpPage.setLastNameInput("Marecki");
-        signUpPage.setEmail(randomMail);
-        signUpPage.setPhone("111111111");
-        signUpPage.setPassword("qazwsx");
-        signUpPage.setConfirmPassword("qazwsx");
-
-        LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
-        Assert.assertTrue(loggedUserPage.getHeadingtext().contains("Marecki"));
-        Assert.assertEquals(loggedUserPage.getHeadingtext(), "Hi, Marek Marecki");
-    }
-
-    @Test
     public void SignUpEmptyFormTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
