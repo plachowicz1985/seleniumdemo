@@ -7,10 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoggedUserPage {
 
-    @FindBy (xpath = "//h3[@class='RTL']")
+    @FindBy(xpath = "//h3[@class='RTL']")
     public WebElement heading;
+
     public LoggedUserPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     public String getHeadingtext() {
