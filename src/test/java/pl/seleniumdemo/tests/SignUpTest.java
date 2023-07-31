@@ -3,19 +3,18 @@ package pl.seleniumdemo.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pl.seleniumdemo.model.User;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
 
 import java.util.List;
 
-public class SignUpTest  extends BaseTest{
+public class SignUpTest extends BaseTest {
 
     @Test
-    public void signUpTest() throws InterruptedException {
+    public void signUpTest() {
         String name = "Piotrek";
-        int randomNumber = (int) (Math.random()*1000);
+        int randomNumber = (int) (Math.random() * 1000);
         String randomMail = name + randomNumber + "@pio.pl";
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
@@ -37,30 +36,27 @@ public class SignUpTest  extends BaseTest{
 
     @Test
     public void signUpTest2() {
-        int randomNumber = (int) (Math.random()*1000);
+        int randomNumber = (int) (Math.random() * 1000);
         String randomMail = "name" + randomNumber + "@pio.pl";
-
-        User user = new User();
-        user.setFirstName("Piotrek");
-        user.setLastName("Pio");
-        user.setPhone("111111111");
-        user.setEmail(randomMail);
-        user.setPassword("qazwsx");
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.openSignUpForm();
 
         SignUpPage signUpPage = new SignUpPage(driver);
-//        signUpPage.fillSignUpForm(name,"Pio","111111111",randomMail,"123123");
-        signUpPage.fillSignUpForm(user);
+        signUpPage.setFirstNameInput("Marek");
+        signUpPage.setLastNameInput("Marecki");
+        signUpPage.setEmail(randomMail);
+        signUpPage.setPhone("111111111");
+        signUpPage.setPassword("qazwsx");
+        signUpPage.setConfirmPassword("qazwsx");
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
-        Assert.assertTrue(loggedUserPage.getHeadingtext().contains(user.getLastName()));
-        Assert.assertEquals(loggedUserPage.getHeadingtext(), "Hi, " + user.getFirstName() + " " + user.getLastName());
+        Assert.assertTrue(loggedUserPage.getHeadingtext().contains("Marecki"));
+        Assert.assertEquals(loggedUserPage.getHeadingtext(), "Hi, Marek Marecki");
     }
 
     @Test
-    public void SignUpEmptyFormTest () {
+    public void SignUpEmptyFormTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.openSignUpForm();

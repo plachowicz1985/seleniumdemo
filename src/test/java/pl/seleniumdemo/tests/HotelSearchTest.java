@@ -7,17 +7,17 @@ import pl.seleniumdemo.pages.ResultsPage;
 
 import java.util.List;
 
-public class HotelSearchTest extends BaseTest{
+public class HotelSearchTest extends BaseTest {
 
     @Test
-    public void searchHotelTest() throws InterruptedException {
+    public void searchHotelTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         List<String> hotelNames = hotelSearchPage
-                       .setCity("Dubai")
-                       .setDates("29/07/2023", "29/08/2023")
-                       .setTravelers(1, 1)
-                       .performSearch().getHotelNames();
+                .setCity("Dubai")
+                .setDates("29/07/2023", "29/08/2023")
+                .setTravelers(1, 1)
+                .performSearch().getHotelNames();
 
         Assert.assertEquals("Jumeirah Beach Hotel", hotelNames.get(0));
         Assert.assertEquals("Oasis Beach Tower", hotelNames.get(1));
@@ -28,7 +28,7 @@ public class HotelSearchTest extends BaseTest{
     @Test
     public void searchHotelWithoutNameTest() {
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver)
-        .setDates("28/07/2023", "12/08/2023");
+                .setDates("28/07/2023", "12/08/2023");
         hotelSearchPage.setTravelers(1, 2);
         hotelSearchPage.performSearch();
 
