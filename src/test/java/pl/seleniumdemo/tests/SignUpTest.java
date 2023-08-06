@@ -1,11 +1,13 @@
 package pl.seleniumdemo.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
+import pl.seleniumdemo.utils.SeleniumHelper;
 
 import java.util.List;
 
@@ -49,8 +51,10 @@ public class SignUpTest extends BaseTest {
         signUpPage.setPhone("111111111");
         signUpPage.setPassword("qazwsx");
         signUpPage.setConfirmPassword("qazwsx");
+        signUpPage.signUp();
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
+        SeleniumHelper.waitForElementToExist(driver, By.xpath("//h3[@class='RTL']"));
         Assert.assertTrue(loggedUserPage.getHeadingtext().contains("Marecki"));
         Assert.assertEquals(loggedUserPage.getHeadingtext(), "Hi, Marek Marecki");
     }
@@ -87,6 +91,7 @@ public class SignUpTest extends BaseTest {
         signUpPage.setConfirmPassword("123456");
         signUpPage.signUp();
 
+        SeleniumHelper.waitForNotEmptyList(driver, By.xpath("//div[@class='alert alert-danger']//p"));
         Assert.assertTrue(signUpPage.getErrors().contains("The Email field must contain a valid email address."));
     }
 }
