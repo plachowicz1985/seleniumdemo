@@ -8,11 +8,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ExcelReader {
-    public static void readExcel(String fileName) throws IOException {
+    public static Object[][] readExcel(String fileName) throws IOException {
 
         File file = new File("src/test/resources/"+fileName);
         FileInputStream inputStream = new FileInputStream(file);
@@ -27,17 +26,19 @@ public class ExcelReader {
         Sheet sheet = workbook.getSheetAt(0);
 
         int rowCount = sheet.getLastRowNum();
+        int columnCount = sheet.getRow(0).getLastCellNum();
+        Object[][] data = new Object[rowCount][columnCount];
 
-        for (int i = 2; i <= rowCount; i++) {
+        for (int i = 1; i <= rowCount; i++) {
             Row row = sheet.getRow(i);
-
-            System.out.println(row.getCell(0).getStringCellValue());
-            System.out.println(row.getCell(1).getStringCellValue());
-
+            for(int j=0; j<columnCount; j++) {
+                data[i-1][j] = row.getCell(j).getStringCellValue();
+            }
         }
+        return data;
     }
 
     public static void main(String[] args) throws IOException {
-            readExcel("testData.xls");
+            readExcel("testData.xlsx");
     }
 }
